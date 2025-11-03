@@ -1,4 +1,4 @@
-# Dynamic Face-Fitting AR Overlay Framework
+# Augmented Reality Face Tracking and Overlay System
 Computer Vision + Augmented Reality implementation
 
 Detects facial landmarks from a video and determines facial geometry such as head width, chin position, and eye spacing using MediaPipe. 
