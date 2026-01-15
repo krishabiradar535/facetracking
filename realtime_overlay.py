@@ -8,7 +8,7 @@ from tkinter import filedialog
 
 # all the functions created here
 
-# will remove the white stuff from ur image so that the background is not there
+# will remove the white stuff from ur image so that the background is not there : classic colour thresholding bg removal
 def removebg(img_bgra):
     if img_bgra.shape[2] == 4:
         b, g, r, a = cv2.split(img_bgra)
@@ -23,6 +23,29 @@ def removebg(img_bgra):
 
     a[white_mask] = 0
     return cv2.merge([b, g, r, a])
+
+# GrabCut algo for bg removal 
+'''def removebg(img_bgra):
+    if img_bgra.shape[2] == 4:
+        b, g, r, a = cv2.split(img_bgra)
+        img = cv2.merge([b, g, r])
+    else:
+        img = img_bgra
+        a = np.ones(img.shape[:2], dtype=np.uint8) * 255
+
+    mask = np.zeros(img.shape[:2], np.uint8)
+    bgdModel = np.zeros((1, 65), np.float64)
+    fgdModel = np.zeros((1, 65), np.float64)
+
+    h, w = img.shape[:2]
+    rect = (1, 1, w - 2, h - 2)
+
+    cv2.grabCut(img, mask, rect, bgdModel, fgdModel, 5, cv2.GC_INIT_WITH_RECT)
+
+    final_mask = np.where((mask == 2) | (mask == 0), 0, 255).astype(np.uint8)
+    a = final_mask
+
+    return cv2.merge([img[:, :, 0], img[:, :, 1], img[:, :, 2], a])'''
 
 # will apply the image on ur face ie overlaying
 def overlayit(frame, overlay, x, y):
@@ -144,7 +167,7 @@ placement = "nose"
 # real-time loop
 cap = cv2.VideoCapture(0)
 
-print("\nREAL-TIME AR READY")
+print("\real time ready")
 print("Controls:")
 print("  o = choose overlay image")
 print("  1-7 = change placement")
@@ -198,3 +221,4 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
